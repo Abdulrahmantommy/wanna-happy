@@ -11,7 +11,6 @@ class MainApp(QMainWindow, ui):
         self.handel()
         self.tabWidget.setCurrentIndex(0)
         self.tabWidget.tabBar().setVisible(False)
-        self.label_7.setText('')
     def handel(self):
         self.pushButton_goto_ECMPAGE.clicked.connect(self.tap1)
         self.pushButton_EXIT.clicked.connect(self.tap0)
@@ -28,16 +27,14 @@ class MainApp(QMainWindow, ui):
             self.atomic_weight = float(self.lineEdit_atomic_weight.text())
             self.valency = int(self.lineEdit_valency.text())
             self.FINAL_1 = (self.atomic_weight * 60 * 1000) / (self.valency * self.density * 96500)
-            self.label_5.setText(f'The Current : \n{self.FINAL_1} (Ampere)')
             self.tabWidget.setCurrentIndex(2)
             self.li = [self.textEdit, self.textEdit_2, self.textEdit_3, self.textEdit_4]
             for i in self.li:
-                i.setPlainText(
-                                f'''Density = {self.density} gm/cm³
-                                Atomic Weight = {self.atomic_weight} g/mole 
-                                Valency = {self.valency}
-                                {self.FINAL_1} mm³/A.min
-                                ************************ ''')
+                i.setPlainText(f'''Density = {self.density} gm/cm³
+Atomic Weight = {self.atomic_weight} g/mole 
+Valency = {self.valency}
+MRR = {float(round(self.FINAL_1, 3))} mm³/A.min
+************************''')
             return self.FINAL_1
         except ValueError as e:
             print(e)
@@ -47,20 +44,17 @@ class MainApp(QMainWindow, ui):
             self.Working_Area = float(self.lineEdit_Working_Area.text())
             self.rate_of_feed = float(self.lineEdit_rate_of_feed.text())
             self.FINAL_2 = self.Working_Area * self.rate_of_feed / self.FINAL_1
-            self.label_10.setText(f'The Current : \n{self.FINAL_2} (Ampere)')
             self.tabWidget.setCurrentIndex(3)
             for i in self.li:
-                i.setPlainText(
-                                f'''Density = {self.density} gm/cm³
-                                Atomic Weight = {self.atomic_weight} g/mole
-                                Valency = {self.valency}
-                                {self.FINAL_1} mm³/A.min
-                                ************************
-                                Working Area = {self.Working_Area} mm²
-                                Rate Of Feed = {self.rate_of_feed} mm/min
-                                {self.FINAL_2} Ampere
-                                ************************
-                                ''')
+                i.setPlainText(f'''Density = {self.density} gm/cm³
+Atomic Weight = {self.atomic_weight} g/mole
+Valency = {self.valency}
+MRR = {float(round(self.FINAL_1, 3))} mm³/A.min
+************************
+Working Area = {self.Working_Area} mm²
+Rate Of Feed = {self.rate_of_feed} mm/min
+Current = {float(round(self.FINAL_2, 3))} Ampere
+************************''')
             return self.FINAL_2, self.Working_Area
         except ValueError as e:
             print(e)
@@ -69,22 +63,19 @@ class MainApp(QMainWindow, ui):
         try:
             self.voltage = float(self.lineEdit_voltage.text())
             self.FINAL_3 = self.voltage / self.FINAL_2
-            self.label_13.setText(f"{self.FINAL_3}")
             self.tabWidget.setCurrentIndex(4)
             for i in self.li:
-                i.setPlainText(
-                                f'''Density = {self.density} gm/cm³
-                                Atomic Weight = {self.atomic_weight} g/mole 
-                                Valency = {self.valency}
-                                {self.FINAL_1} mm³/A.min
-                                ************************
-                                Working Area = {self.Working_Area}
-                                Rate Of Feed = {self.rate_of_feed}
-                                {self.FINAL_2} Ampere
-                                ************************
-                                Voltage = {self.voltage} volt
-                                {self.FINAL_3} Ω
-                                ''')
+                i.setPlainText(f'''Density = {self.density} gm/cm³
+Atomic Weight = {self.atomic_weight} g/mole 
+Valency = {self.valency}
+MRR = {float(round(self.FINAL_1, 3))} mm³/A.min
+************************
+Working Area = {self.Working_Area}
+Rate Of Feed = {self.rate_of_feed}
+Current = {float(round(self.FINAL_2, 3))} Ampere
+************************
+Voltage = {self.voltage} volt
+Resistance = {float(round(self.FINAL_3, 3))} Ω''')
             return self.FINAL_3
         except ValueError as e:
             print(e)
@@ -93,24 +84,21 @@ class MainApp(QMainWindow, ui):
         try:
             self.resistivity = float(self.lineEdit_Resistivity.text())
             self.Finally = self.FINAL_3 * self.Working_Area / self.resistivity
-            self.label_18.setText(f'{self.Finally}')
             for i in self.li:
-                i.setPlainText(
-                                f'''Density = {self.density} gm/cm³
-                                Atomic Weight = {self.atomic_weight} g/mole 
-                                Valency = {self.valency}
-                                {self.FINAL_1} mm³/A.min
-                                ************************
-                                Working Area = {self.Working_Area}
-                                Rate Of Feed = {self.rate_of_feed}
-                                {self.FINAL_2} Ampere
-                                ************************
-                                Voltage = {self.voltage}
-                                {self.FINAL_3}
-                                ************************
-                                Resistivity = {self.resistivity}  (Ω.mm)
-                                {self.Finally} mm
-                                ''')
+                i.setPlainText(f'''Density = {self.density} gm/cm³
+Atomic Weight = {self.atomic_weight} g/mole 
+Valency = {self.valency}
+MRR = {float(round(self.FINAL_1, 3))} mm³/A.min
+************************
+Working Area = {self.Working_Area}
+Rate Of Feed = {self.rate_of_feed}
+Current = {float(round(self.FINAL_2, 3))} Ampere
+************************
+Voltage = {self.voltage} volt
+Resistance = {float(round(self.FINAL_3, 3))} Ω
+************************
+Resistivity = {self.resistivity}  (Ω.mm)
+Machining gap = {float(round(self.Finally,3))} mm''')
             return self.Finally
         except ValueError as e:
             print(e)
